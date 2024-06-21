@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
+    <LangVersion>12.0</LangVersion>
+
+    <PackageId>AMWD.Net.Api.Netcup.Ccp</PackageId>
+    <AssemblyName>amwd-netcup-ccp</AssemblyName>
+    <RootNamespace>AMWD.Net.Api.Netcup.Ccp</RootNamespace>
+
+    <Product>Customer Control Panel API</Product>
+    <Description>API to control actions of the netcup Customer Control Panel.</Description>
+    <PackageTags>netcup ccp api</PackageTags>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="/" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Newtonsoft.Json" />
+  </ItemGroup>
+
+</Project>

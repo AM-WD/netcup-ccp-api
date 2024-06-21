@@ -1,0 +1,60 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.9.34701.34
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Netcup.Ccp", "Netcup.Ccp\Netcup.Ccp.csproj", "{A1393365-DBD7-4B36-8E72-1570D3F83583}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E32AB6CC-1EBD-407A-BAAD-A7245CDE0C8C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Netcup.Ccp.Tests", "Netcup.Ccp.Tests\Netcup.Ccp.Tests.csproj", "{FE20AF9F-66EE-4CF9-A6D7-0C202304C51E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{DC9FE475-E4F2-4AC5-93A4-709CD6C2DD35}"
+	ProjectSection(SolutionItems) = preProject
+		CHANGELOG.md = CHANGELOG.md
+		LICENSE.txt = LICENSE.txt
+		package-icon.png = package-icon.png
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{E16762D6-33DA-4790-9BF9-9D4D216EB9C3}"
+	ProjectSection(SolutionItems) = preProject
+		.gitlab-ci.yml = .gitlab-ci.yml
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "config", "config", "{5884D133-0A76-4DA2-AA7C-5787536C7904}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		CodeMaid.config = CodeMaid.config
+		nuget.config = nuget.config
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A1393365-DBD7-4B36-8E72-1570D3F83583}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A1393365-DBD7-4B36-8E72-1570D3F83583}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A1393365-DBD7-4B36-8E72-1570D3F83583}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A1393365-DBD7-4B36-8E72-1570D3F83583}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE20AF9F-66EE-4CF9-A6D7-0C202304C51E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE20AF9F-66EE-4CF9-A6D7-0C202304C51E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE20AF9F-66EE-4CF9-A6D7-0C202304C51E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE20AF9F-66EE-4CF9-A6D7-0C202304C51E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DC9FE475-E4F2-4AC5-93A4-709CD6C2DD35} = {E32AB6CC-1EBD-407A-BAAD-A7245CDE0C8C}
+		{E16762D6-33DA-4790-9BF9-9D4D216EB9C3} = {E32AB6CC-1EBD-407A-BAAD-A7245CDE0C8C}
+		{5884D133-0A76-4DA2-AA7C-5787536C7904} = {E32AB6CC-1EBD-407A-BAAD-A7245CDE0C8C}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8D00E28F-BA17-472C-90BB-BFA06F9D8FF4}
+	EndGlobalSection
+EndGlobal
