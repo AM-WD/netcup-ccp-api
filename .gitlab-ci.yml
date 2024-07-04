@@ -80,7 +80,7 @@ build-release:
     paths:
       - artifacts/*.nupkg
       - artifacts/*.snupkg
-    expire_in: 1 days
+    expire_in: 7 days
 
 test-release:
   stage: test
