@@ -47,18 +47,6 @@ namespace AMWD.Net.Api.Netcup.Ccp
 			_httpClient = new HttpClient();
 		}
 
-		// Used for UnitTests
-		internal NetcupApiClient(uint customerNumber, string apiKey, HttpMessageHandler handler)
-		{
-			AssertCustomerNumber(customerNumber);
-			AssertApiKey(apiKey);
-
-			_customerNumber = customerNumber;
-			_apiKey = apiKey;
-
-			_httpClient = new HttpClient(handler);
-		}
-
 		/// <summary>
 		/// Releases all managed and unmanaged resources used by the <see cref="NetcupApiClient"/>.
 		/// </summary>

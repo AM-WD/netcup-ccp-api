@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Reflection;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -1001,7 +1002,15 @@ namespace Netcup.Ccp.Tests
 				})
 				.ReturnsAsync(_httpResponseMessages.Dequeue);
 
-			return new NetcupApiClient(CUSTOMER_NUMBER, API_KEY, _httpMessageHandlerMock.Object);
+			var client = new NetcupApiClient(CUSTOMER_NUMBER, API_KEY);
+
+			var httpClientFieldInfo = client.GetType()
+				.GetField("_httpClient", BindingFlags.NonPublic | BindingFlags.Instance);
+
+			(httpClientFieldInfo.GetValue(client) as HttpClient)?.Dispose();
+			httpClientFieldInfo.SetValue(client, new HttpClient(_httpMessageHandlerMock.Object));
+
+			return client;
 		}
 
 		private class HttpRequestMessageCallback
