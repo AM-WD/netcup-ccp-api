@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
-    <LangVersion>12.0</LangVersion>
 
     <PackageId>AMWD.Net.Api.Netcup.Ccp</PackageId>
     <AssemblyName>amwd-netcup-ccp</AssemblyName>
@@ -19,9 +18,6 @@
 
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Using Include="Newtonsoft.Json" />
   </ItemGroup>
 

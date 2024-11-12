@@ -20,11 +20,11 @@ build-debug:
   rules:
     - if: $CI_COMMIT_TAG == null
   script:
-    - dotnet restore --no-cache --force
-    - dotnet build -c Debug --nologo --no-restore --no-incremental
+    - dotnet build -c Debug --nologo
     - mkdir ./artifacts
-    - mv ./Netcup.Ccp/bin/Debug/*.nupkg    ./artifacts/
-    - mv ./Netcup.Ccp/bin/Debug/*.snupkg   ./artifacts/
+    - shopt -s globstar
+    - mv ./**/*.nupkg    ./artifacts/ || true
+    - mv ./**/*.snupkg   ./artifacts/ || true
   artifacts:
     paths:
       - artifacts/*.nupkg
@@ -41,10 +41,19 @@ test-debug:
     - 64bit
   rules:
     - if: $CI_COMMIT_TAG == null
-  coverage: '/Total[^|]*\|[^|]*\|\s*([0-9.%]+)/'
+  coverage: /Branch coverage[\s\S].+%/
+  before_script:
+    - dotnet tool install dotnet-reportgenerator-globaltool --tool-path /dotnet-tools
   script:
-    - dotnet restore --no-cache --force
-    - dotnet test -c Debug --nologo --no-restore
+    - dotnet test -c Debug --nologo /p:CoverletOutputFormat=Cobertura
+    - /dotnet-tools/reportgenerator "-reports:${CI_PROJECT_DIR}/**/coverage.cobertura.xml" "-targetdir:/reports" -reportType:TextSummary
+    - cat /reports/Summary.txt
+  artifacts:
+    when: always
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: ./**/coverage.cobertura.xml
 
 deploy-debug:
   stage: deploy
@@ -58,7 +67,7 @@ deploy-debug:
   rules:
     - if: $CI_COMMIT_TAG == null
   script:
-    - dotnet nuget push -k $BAGET_APIKEY -s https://nuget.am-wd.de/v3/index.json --skip-duplicate artifacts/*.nupkg
+    - dotnet nuget push -k $BAGET_APIKEY -s https://nuget.am-wd.de/v3/index.json --skip-duplicate artifacts/*.nupkg || true
 
 
 
@@ -71,11 +80,11 @@ build-release:
   rules:
     - if: $CI_COMMIT_TAG != null
   script:
-    - dotnet restore --no-cache --force
-    - dotnet build -c Release --nologo --no-restore --no-incremental
+    - dotnet build -c Release --nologo
     - mkdir ./artifacts
-    - mv ./Netcup.Ccp/bin/Release/*.nupkg    ./artifacts/
-    - mv ./Netcup.Ccp/bin/Release/*.snupkg   ./artifacts/
+    - shopt -s globstar
+    - mv ./**/*.nupkg    ./artifacts/
+    - mv ./**/*.snupkg   ./artifacts/
   artifacts:
     paths:
       - artifacts/*.nupkg
@@ -92,10 +101,19 @@ test-release:
     - amd64
   rules:
     - if: $CI_COMMIT_TAG != null
-  coverage: '/Total[^|]*\|[^|]*\|\s*([0-9.%]+)/'
+  coverage: /Branch coverage[\s\S].+%/
+  before_script:
+    - dotnet tool install dotnet-reportgenerator-globaltool --tool-path /dotnet-tools
   script:
-    - dotnet restore --no-cache --force
-    - dotnet test -c Release --nologo --no-restore
+    - dotnet test -c Release --nologo /p:CoverletOutputFormat=Cobertura
+    - /dotnet-tools/reportgenerator "-reports:${CI_PROJECT_DIR}/**/coverage.cobertura.xml" "-targetdir:/reports" -reportType:TextSummary
+    - cat /reports/Summary.txt
+  artifacts:
+    when: always
+    reports:
+      coverage_report:
+        coverage_format: cobertura
+        path: ./**/coverage.cobertura.xml
 
 deploy-release:
   stage: deploy

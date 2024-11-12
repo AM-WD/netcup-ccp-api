@@ -1,11 +1,11 @@
 <Project>
   <PropertyGroup>
+    <LangVersion>12.0</LangVersion>
     <NrtRevisionFormat>{semvertag:main}{!:-dev}</NrtRevisionFormat>
 
     <AppendTargetFrameworkToOutputPath>true</AppendTargetFrameworkToOutputPath>
     <CopyRefAssembliesToPublishDirectory>false</CopyRefAssembliesToPublishDirectory>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <IncludeSourceRevisionInInformationalVersion>false</IncludeSourceRevisionInInformationalVersion>
 
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/AM-WD/netcup-ccp-api.git</RepositoryUrl>
@@ -25,6 +25,10 @@
     <Authors>Andreas Müller</Authors>
     <Copyright>© {copyright:2024-} AM.WD</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(SolutionDir)/netcup-ccp-api.snk</AssemblyOriginatorKeyFile>
+    <PublicKey>00240000048000009400000006020000002400005253413100040000010001000155eefad011a2049a23b1b259b17d1cd8495317b216d6409ffda0f6283a932146910893ca49eaa52e6f10050e46a9a1698941f108a3733a2505b92741d628ae47be457add8da714d8643bca8015998908da23005ae79be44eedac352a66884a9f36c3c1b08efeee1c67003acc5c4b4ca3aeca0afa90a9763d717a0c3e492ac8</PublicKey>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(GITLAB_CI)' == 'true'">
@@ -40,11 +44,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Include="../package-icon.png" Pack="true" PackagePath="/" />
+    <None Include="$(SolutionDir)/package-icon.png" Pack="true" PackagePath="/" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Unclassified.NetRevisionTask" Version="0.4.3">
+    <PackageReference Include="AMWD.NetRevisionTask" Version="1.2.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

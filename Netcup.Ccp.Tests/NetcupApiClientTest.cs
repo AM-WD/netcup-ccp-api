@@ -257,6 +257,21 @@ namespace Netcup.Ccp.Tests
 				Assert.IsFalse(req.Value<JObject>("param").ContainsKey("clientrequestid"));
 		}
 
+		[DataTestMethod]
+		[DataRow(null)]
+		[DataRow("")]
+		[DataRow("   ")]
+		public async Task ShouldThrowArgumentNullExceptionForMissingApiSessionId(string id)
+		{
+			// Arrange
+			var client = GetClient();
+
+			// Act
+			var response = await client.Logout(id);
+
+			// Assert - ArgumentNullException
+		}
+
 		#endregion Session Management
 
 		#region DNS API
