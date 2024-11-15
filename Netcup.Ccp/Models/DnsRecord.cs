@@ -1,10 +1,10 @@
-﻿namespace AMWD.Net.Api.Netcup.Ccp.Models
+﻿namespace AMWD.Net.Api.Netcup.Ccp
 {
 	/// <summary>
 	/// DNS record.
 	/// </summary>
 	[System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-	public class DnsRecord
+	public class DnsRecord(string hostname, DnsRecordType type, string destination)
 	{
 		/// <summary>
 		/// Unique of the record. Leave id empty for new records.
@@ -16,13 +16,13 @@
 		/// Hostname of the record. Use '@' for root of domain.
 		/// </summary>
 		[JsonProperty("hostname", Required = Required.Always)]
-		public string Hostname { get; set; }
+		public string Hostname { get; set; } = hostname;
 
 		/// <summary>
 		/// Type of Record like A or MX.
 		/// </summary>
 		[JsonProperty("type", Required = Required.Always)]
-		public string Type { get; set; }
+		public DnsRecordType Type { get; set; } = type;
 
 		/// <summary>
 		/// Required for MX records.
@@ -34,7 +34,7 @@
 		/// Target of the record.
 		/// </summary>
 		[JsonProperty("destination", Required = Required.Always)]
-		public string Destination { get; set; }
+		public string Destination { get; set; } = destination;
 
 		/// <summary>
 		/// <see langword="true"/> when record will be deleted.
@@ -48,7 +48,7 @@
 		/// State of the record. Read only, inputs are ignored.
 		/// </summary>
 		[JsonProperty("state", Required = Required.AllowNull)]
-		public string State { get; set; }
+		public string? State { get; set; }
 
 		/// <inheritdoc />
 		public override string ToString()

@@ -7,9 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- Explicit nullable
+- Strong assembly name signing
+
+### Changed
+
+- The DNS record type is now strong typed via enum `DnsRecordType`
+- The response status is now strong typed via enum `ResponseStatus`
+
 ### Removed
 
 - Unneccessary internal constructor (for UnitTests)
+- `Models` sub-namespace
 
 
 ## [v0.1.0] - 2024-06-21

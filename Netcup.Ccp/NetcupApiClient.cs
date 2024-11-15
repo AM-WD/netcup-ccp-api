@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using AMWD.Net.Api.Netcup.Ccp.Models;
 
 namespace AMWD.Net.Api.Netcup.Ccp
 {
@@ -71,21 +70,14 @@ namespace AMWD.Net.Api.Netcup.Ccp
 		/// <param name="apiPassword">API password set in customer control panel.</param>
 		/// <param name="clientRequestId">Id from client side. Can contain letters and numbers. Field is optional.</param>
 		/// <param name="cancellationToken">A cancellation token used to propagate notification that this operation should be canceled.</param>
-		public Task<ResponseMessage<SessionObject>> Login(string apiPassword, string clientRequestId = null, CancellationToken cancellationToken = default)
+		public Task<ResponseMessage<SessionObject>> Login(string apiPassword, string? clientRequestId = null, CancellationToken cancellationToken = default)
 		{
 			AssertDisposed();
 			AssertApiPassword(apiPassword);
 			AssertClientRequestId(clientRequestId);
 
-			var reqParam = new Dictionary<string, object>
-			{
-				{ "customernumber", _customerNumber },
-				{ "apikey", _apiKey },
-				{ "apipassword", apiPassword }
-			};
-
-			if (!string.IsNullOrWhiteSpace(clientRequestId))
-				reqParam.Add("clientrequestid", clientRequestId);
+			var reqParam = GetBaseParams(clientRequestId);
+			reqParam.Add("apipassword", apiPassword);
 
 			return SendAsync<ResponseMessage<SessionObject>>("login", reqParam, cancellationToken);
 		}
@@ -99,20 +91,13 @@ namespace AMWD.Net.Api.Netcup.Ccp
 		/// <param name="apiSessionId">Unique API session id created by login command.</param>
 		/// <param name="clientRequestId">Id from client side. Can contain letters and numbers. Field is optional.</param>
 		/// <param name="cancellationToken">A cancellation token used to propagate notification that this operation should be canceled.</param>
-		public Task<ResponseMessage> Logout(string apiSessionId, string clientRequestId = null, CancellationToken cancellationToken = default)
+		public Task<ResponseMessage> Logout(string apiSessionId, string? clientRequestId = null, CancellationToken cancellationToken = default)
 		{
 			AssertDisposed();
 			AssertApiCredentials(apiSessionId, clientRequestId);
 
-			var reqParam = new Dictionary<string, object>
-			{
-				{ "customernumber", _customerNumber },
-				{ "apikey", _apiKey },
-				{ "apisessionid", apiSessionId }
-			};
-
-			if (!string.IsNullOrWhiteSpace(clientRequestId))
-				reqParam.Add("clientrequestid", clientRequestId);
+			var reqParam = GetBaseParams(clientRequestId);
+			reqParam.Add("apisessionid", apiSessionId);
 
 			return SendAsync<ResponseMessage>("logout", reqParam, cancellationToken);
 		}
@@ -129,22 +114,15 @@ namespace AMWD.Net.Api.Netcup.Ccp
 		/// <param name="clientRequestId">Id from client side. Can contain letters and numbers. Field is optional.</param>
 		/// <param name="cancellationToken">A cancellation token used to propagate notification that this operation should be canceled.</param>
 		/// <returns>The <see cref="DnsZone" /> information.</returns>
-		public Task<ResponseMessage<DnsZone>> InfoDnsZone(string apiSessionId, string domainName, string clientRequestId = null, CancellationToken cancellationToken = default)
+		public Task<ResponseMessage<DnsZone>> InfoDnsZone(string apiSessionId, string domainName, string? clientRequestId = null, CancellationToken cancellationToken = default)
 		{
 			AssertDisposed();
 			AssertApiCredentials(apiSessionId, clientRequestId);
 			AssertDomainName(domainName);
 
-			var reqParam = new Dictionary<string, object>
-			{
-				{ "customernumber", _customerNumber },
-				{ "apikey", _apiKey },
-				{ "apisessionid", apiSessionId },
-				{ "domainname", domainName }
-			};
-
-			if (!string.IsNullOrWhiteSpace(clientRequestId))
-				reqParam.Add("clientrequestid", clientRequestId);
+			var reqParam = GetBaseParams(clientRequestId);
+			reqParam.Add("apisessionid", apiSessionId);
+			reqParam.Add("domainname", domainName);
 
 			return SendAsync<ResponseMessage<DnsZone>>("infoDnsZone", reqParam, cancellationToken);
 		}
@@ -157,22 +135,15 @@ namespace AMWD.Net.Api.Netcup.Ccp
 		/// <param name="clientRequestId">Id from client side. Can contain letters and numbers. Field is optional.</param>
 		/// <param name="cancellationToken">A cancellation token used to propagate notification that this operation should be canceled.</param>
 		/// <returns>A <see cref="DnsRecordSet" /> with all records of the zone.</returns>
-		public Task<ResponseMessage<DnsRecordSet>> InfoDnsRecords(string apiSessionId, string domainName, string clientRequestId = null, CancellationToken cancellationToken = default)
+		public Task<ResponseMessage<DnsRecordSet>> InfoDnsRecords(string apiSessionId, string domainName, string? clientRequestId = null, CancellationToken cancellationToken = default)
 		{
 			AssertDisposed();
 			AssertApiCredentials(apiSessionId, clientRequestId);
 			AssertDomainName(domainName);
 
-			var reqParam = new Dictionary<string, object>
-			{
-				{ "customernumber", _customerNumber },
-				{ "apikey", _apiKey },
-				{ "apisessionid", apiSessionId },
-				{ "domainname", domainName }
-			};
-
-			if (!string.IsNullOrWhiteSpace(clientRequestId))
-				reqParam.Add("clientrequestid", clientRequestId);
+			var reqParam = GetBaseParams(clientRequestId);
+			reqParam.Add("apisessionid", apiSessionId);
+			reqParam.Add("domainname", domainName);
 
 			return SendAsync<ResponseMessage<DnsRecordSet>>("infoDnsRecords", reqParam, cancellationToken);
 		}
@@ -189,7 +160,7 @@ namespace AMWD.Net.Api.Netcup.Ccp
 		/// <param name="clientRequestId">Id from client side. Can contain letters and numbers. Field is optional.</param>
 		/// <param name="cancellationToken">A cancellation token used to propagate notification that this operation should be canceled.</param>
 		/// <returns>The updated <see cref="DnsZone" /> information.</returns>
-		public Task<ResponseMessage<DnsZone>> UpdateDnsZone(string apiSessionId, string domainName, DnsZone zoneInfo, string clientRequestId = null, CancellationToken cancellationToken = default)
+		public Task<ResponseMessage<DnsZone>> UpdateDnsZone(string apiSessionId, string domainName, DnsZone zoneInfo, string? clientRequestId = null, CancellationToken cancellationToken = default)
 		{
 			AssertDisposed();
 			AssertApiCredentials(apiSessionId, clientRequestId);
@@ -214,17 +185,10 @@ namespace AMWD.Net.Api.Netcup.Ccp
 			zoneInfo.Name = null;
 			zoneInfo.Serial = null;
 
-			var reqParam = new Dictionary<string, object>
-			{
-				{ "customernumber", _customerNumber },
-				{ "apikey", _apiKey },
-				{ "apisessionid", apiSessionId },
-				{ "domainname", domainName },
-				{ "dnszone", zoneInfo }
-			};
-
-			if (!string.IsNullOrWhiteSpace(clientRequestId))
-				reqParam.Add("clientrequestid", clientRequestId);
+			var reqParam = GetBaseParams(clientRequestId);
+			reqParam.Add("apisessionid", apiSessionId);
+			reqParam.Add("domainname", domainName);
+			reqParam.Add("dnszone", zoneInfo);
 
 			return SendAsync<ResponseMessage<DnsZone>>("updateDnsZone", reqParam, cancellationToken);
 		}
@@ -242,7 +206,7 @@ namespace AMWD.Net.Api.Netcup.Ccp
 		/// <param name="clientRequestId">Id from client side. Can contain letters and numbers. Field is optional.</param>
 		/// <param name="cancellationToken">A cancellation token used to propagate notification that this operation should be canceled.</param>
 		/// <returns>The updated <see cref="DnsRecordSet" /> with all records.</returns>
-		public Task<ResponseMessage<DnsRecordSet>> UpdateDnsRecords(string apiSessionId, string domainName, DnsRecordSet dnsRecordSet, string clientRequestId = null, CancellationToken cancellationToken = default)
+		public Task<ResponseMessage<DnsRecordSet>> UpdateDnsRecords(string apiSessionId, string domainName, DnsRecordSet dnsRecordSet, string? clientRequestId = null, CancellationToken cancellationToken = default)
 		{
 			AssertDisposed();
 			AssertApiCredentials(apiSessionId, clientRequestId);
@@ -259,10 +223,10 @@ namespace AMWD.Net.Api.Netcup.Ccp
 				if (string.IsNullOrWhiteSpace(record.Hostname))
 					throw new ArgumentNullException(nameof(record.Hostname), "The record hostname must be set - use '@' for root domain");
 
-				if (!NetcupRegexPattern.RecordTypes.IsMatch(record.Type))
-					throw new ArgumentException($"Does not match the pattern '{NetcupRegexPattern.RecordTypes}'", nameof(record.Type));
+				if (!Enum.IsDefined(typeof(DnsRecordType), record.Type))
+					throw new ArgumentException($"Unknown record type '{record.Type}'", nameof(record.Type));
 
-				if (record.Type == "MX" && !record.Priority.HasValue)
+				if (record.Type == DnsRecordType.Mx && !record.Priority.HasValue)
 					throw new ArgumentNullException(nameof(record.Priority));
 
 				if (string.IsNullOrWhiteSpace(record.Destination))
@@ -274,17 +238,10 @@ namespace AMWD.Net.Api.Netcup.Ccp
 				record.State = null;
 			}
 
-			var reqParam = new Dictionary<string, object>
-			{
-				{ "customernumber", _customerNumber },
-				{ "apikey", _apiKey },
-				{ "apisessionid", apiSessionId },
-				{ "domainname", domainName },
-				{ "dnsrecordset", dnsRecordSet }
-			};
-
-			if (!string.IsNullOrWhiteSpace(clientRequestId))
-				reqParam.Add("clientrequestid", clientRequestId);
+			var reqParam = GetBaseParams(clientRequestId);
+			reqParam.Add("apisessionid", apiSessionId);
+			reqParam.Add("domainname", domainName);
+			reqParam.Add("dnsrecordset", dnsRecordSet);
 
 			return SendAsync<ResponseMessage<DnsRecordSet>>("updateDnsRecords", reqParam, cancellationToken);
 		}
@@ -293,11 +250,26 @@ namespace AMWD.Net.Api.Netcup.Ccp
 
 		#region Helpers
 
+		private Dictionary<string, object> GetBaseParams(string? clientRequestId)
+		{
+			var dict = new Dictionary<string, object>
+			{
+				{ "customernumber", _customerNumber },
+				{ "apikey", _apiKey }
+			};
+
+#pragma warning disable CS8604 // The client request id will not be null at this point
+			if (!string.IsNullOrWhiteSpace(clientRequestId))
+				dict.Add("clientrequestid", clientRequestId);
+#pragma warning restore CS8604
+
+			return dict;
+		}
+
 		private async Task<TResponse> SendAsync<TResponse>(string action, Dictionary<string, object> parameters, CancellationToken cancellationToken)
 		{
-			var reqBody = new RequestMessage
+			var reqBody = new RequestMessage(action)
 			{
-				Action = action,
 				Parameters = parameters
 			};
 
@@ -315,7 +287,7 @@ namespace AMWD.Net.Api.Netcup.Ccp
 			string resBody = await response.Content.ReadAsStringAsync();
 #endif
 
-			return JsonConvert.DeserializeObject<TResponse>(resBody, _jsonSerializerSettings);
+			return JsonConvert.DeserializeObject<TResponse>(resBody, _jsonSerializerSettings) ?? throw new FormatException("Could not parse the netcup response.");
 		}
 
 		#endregion Helpers
@@ -352,7 +324,7 @@ namespace AMWD.Net.Api.Netcup.Ccp
 				throw new ArgumentNullException(nameof(apiSessionId));
 		}
 
-		private void AssertClientRequestId(string clientRequestId)
+		private void AssertClientRequestId(string? clientRequestId)
 		{
 			if (!string.IsNullOrWhiteSpace(clientRequestId) && !NetcupRegexPattern.ClientRequestId.IsMatch(clientRequestId))
 				throw new ArgumentException($"Does not match the pattern '{NetcupRegexPattern.ClientRequestId}'", nameof(clientRequestId));
@@ -367,7 +339,7 @@ namespace AMWD.Net.Api.Netcup.Ccp
 				throw new ArgumentException($"Does not match the pattern '{NetcupRegexPattern.DomainName}'", nameof(domainName));
 		}
 
-		private void AssertApiCredentials(string apiSessionId, string clientRequestId)
+		private void AssertApiCredentials(string apiSessionId, string? clientRequestId)
 		{
 			AssertApiSessionId(apiSessionId);
 			AssertClientRequestId(clientRequestId);

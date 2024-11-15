@@ -1,4 +1,4 @@
-﻿namespace AMWD.Net.Api.Netcup.Ccp.Models
+﻿namespace AMWD.Net.Api.Netcup.Ccp
 {
 	/// <summary>
 	/// Object that is returned after successful login.
@@ -10,6 +10,6 @@
 		/// Unique API session id created by login command.
 		/// </summary>
 		[JsonProperty("apisessionid", Required = Required.Always)]
-		public string ApiSessionId { get; set; }
+		public string? ApiSessionId { get; set; }
 	}
 }

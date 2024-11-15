@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace AMWD.Net.Api.Netcup.Ccp.Models
+namespace AMWD.Net.Api.Netcup.Ccp
 {
 	/// <summary>
 	/// DNS record set.
@@ -12,6 +12,6 @@ namespace AMWD.Net.Api.Netcup.Ccp.Models
 		/// Array of DNS records for a zone.
 		/// </summary>
 		[JsonProperty("dnsrecords", Required = Required.AllowNull)]
-		public List<DnsRecord> Records { get; set; }
+		public List<DnsRecord> Records { get; set; } = [];
 	}
 }

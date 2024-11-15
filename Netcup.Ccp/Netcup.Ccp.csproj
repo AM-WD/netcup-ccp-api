@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
+    <Nullable>enable</Nullable>
 
     <PackageId>AMWD.Net.Api.Netcup.Ccp</PackageId>
     <AssemblyName>amwd-netcup-ccp</AssemblyName>

@@ -28,7 +28,6 @@
 
   <ItemGroup>
     <Using Include="AMWD.Net.Api.Netcup.Ccp" />
-    <Using Include="AMWD.Net.Api.Netcup.Ccp.Models" />
     <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
     <Using Include="Moq" />
     <Using Include="Moq.Protected" />
