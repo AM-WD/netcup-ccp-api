@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+_nothing changed yet_
+
+
+## [v0.2.0] - 2025-08-04
+
 ### Added
 
 - Explicit nullable
@@ -35,5 +40,7 @@ _initial release, DNS only_
 
 
 
-[Unreleased]: https://github.com/AM-WD/netcup-ccp-api/compare/v0.1.0...HEAD
+[Unreleased]: https://github.com/AM-WD/netcup-ccp-api/compare/v0.2.0...HEAD
+
+[v0.2.0]: https://github.com/AM-WD/netcup-ccp-api/compare/v0.1.0...v0.2.0
 [v0.1.0]: https://github.com/AM-WD/netcup-ccp-api/commits/v0.1.0
