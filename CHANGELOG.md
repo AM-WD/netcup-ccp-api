@@ -7,7 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-_nothing changed yet_
+### Added
+
+- New automatic documentation generation using docfx.
 
 
 ## [v0.2.0] - 2025-08-04
